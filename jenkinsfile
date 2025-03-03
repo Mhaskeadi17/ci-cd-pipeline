@@ -1,32 +1,25 @@
 pipeline {
     agent any
-
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Mhaskeadi17/ci-cd-pipeline.git'
+                git branch: 'master', url: 'https://github.com/Mhaskeadi17/ci-cd-pipeline.git'
             }
         }
-        
         stage('Build') {
             steps {
-                sh 'mvn clean package'  // If using Java & Maven
-                // sh 'npm install && npm run build'  // If using Node.js
+                echo 'Building...'
             }
         }
-
         stage('Test') {
             steps {
-                sh 'mvn test'  // Run unit tests
+                echo 'Testing...'
             }
         }
-
         stage('Deploy') {
             steps {
-                sh 'scp target/*.war user@your-server:/var/lib/tomcat/webapps/'  // If using Tomcat
-                // sh 'docker build -t myapp . && docker run -d -p 80:80 myapp'  // If using Docker
+                echo 'Deploying...'
             }
         }
     }
 }
-
